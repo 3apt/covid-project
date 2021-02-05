@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Dataset png ignore
+COVID-19 Radiography Database/**/*.png
