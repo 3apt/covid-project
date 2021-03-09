@@ -7,11 +7,11 @@ Created on Mon Mar  8 11:12:32 2021
 """
 
 import keras
+from keras.models import Model
 import tensorflow as tf
 import numpy as np
 from skimage import transform
 import streamlit as st
-from PIL import Image
 import cv2
 from skimage import exposure
 
@@ -81,18 +81,15 @@ def get_img_array(img, im_shape):
     return X.reshape((1, im_shape[0], im_shape[1], 1))
 
 
-MODEL = "troisieme_prototype.h5"
-
 @st.cache(allow_output_mutation=True)
-def load_model():
+def load_model(MODEL):
     print("chargement du modèle")
     model = keras.models.load_model(f"cropped_dataset/{MODEL}", compile=True)
 
     return model
 
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
-im_shape = (226, 226)
-def preprocess_image(img):
+def preprocess_image(img, im_shape):
     X = clahe.apply(img)
     X = X/255
     X = exposure.equalize_hist(X)
@@ -106,3 +103,8 @@ def predict(model, img):
     prediction = decode_predictions(pred)
 
     return np.max(pred), prediction
+
+def colorize(model, img):
+    colorize = Model(inputs=model.input, outputs=model.layers[1].output)
+    output = colorize.predict(img)
+    return (output[0]*255).astype(np.uint8)
