@@ -55,7 +55,7 @@ if image_name is not None:
     
     
     if st.checkbox('Avec preprocessing'):
-        st.image((img_pp[0]*255).astype(np.uint8))
+        st.image((img_pp[0]*255).astype(np.uint8), use_column_width=True)
 
     else:
         st.image(img)
