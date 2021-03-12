@@ -90,7 +90,9 @@ def load_model(MODEL):
 
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 def preprocess_image(img, im_shape):
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    if len(img.shape) == 3:
+        if img.shape[2] == 3:
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     X = clahe.apply(img)
     X = X/255
     X = exposure.equalize_hist(X)
