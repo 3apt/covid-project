@@ -11,6 +11,9 @@ from keras.models import Model
 import tensorflow as tf
 import numpy as np
 from skimage import transform
+import streamlit as st
+import cv2
+from skimage import exposure
 
 
 # algorithme de grad-CAM proposé par Keras : https://keras.io/examples/vision/grad_cam/
@@ -76,6 +79,33 @@ def get_img_array(img, im_shape):
     X = img/255
     X = transform.resize(X, im_shape)
     return X.reshape((1, im_shape[0], im_shape[1], 1))
+
+
+@st.cache(allow_output_mutation=True)
+def load_model(MODEL):
+    print("chargement du modèle")
+    model = keras.models.load_model(f"cropped_dataset/{MODEL}", compile=True)
+
+    return model
+
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+def preprocess_image(img, im_shape):
+    if len(img.shape) == 3:
+        if img.shape[2] == 3:
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    X = clahe.apply(img)
+    X = X/255
+    X = exposure.equalize_hist(X)
+    X = transform.resize(X, im_shape)
+    X = exposure.rescale_intensity(np.squeeze(X), out_range=(0,1))
+    return X.reshape((1, im_shape[0], im_shape[1], 1))
+
+
+def predict(model, img):
+    pred = model.predict(img)
+    prediction = decode_predictions(pred)
+
+    return np.max(pred), prediction
 
 def colorize(model, img):
     colorize = Model(inputs=model.input, outputs=model.layers[1].output)
