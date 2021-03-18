@@ -107,7 +107,7 @@ def application():
                 'dense_13',
                 'dropout_11',
                 'dense_14']
-        if option == 'dense121':
+        if option == 'densenet121':
             last_conv_layer_name = "bn"
             classifier_layer_names = [
                 "relu",
