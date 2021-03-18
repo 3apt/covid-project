@@ -26,7 +26,7 @@ def application():
         st.markdown(unsafe_allow_html=True, body="<p>Bienvenue sur le détecteur de COVID-19 et pneumonie.</p>"
                                                  "Avec cette app, vous pouvez uploader une radio de la poitrine et prédire si le patient "
                                                  "est atteint du COVID, d'une pneumonie ou sain.</p>"
-                                                 "<p>Le modèle est un réseau de neurone de convolution basé sur dense121, "
+                                                 "<p>Le modèle est un réseau de neurone de convolution basé sur densenet121, "
                                                  "il a pour le moment une précision test de "
                                                  "<strong>91.4%.</strong></p>")
         if st.checkbox('Afficher la description du modèle'):
@@ -69,7 +69,7 @@ def application():
         # chargement du modèle
         if option == 'VGG16':
             MODEL = "troisieme_prototype.h5"
-        if option == 'dense121':
+        if option == 'densenet121':
             MODEL = "deuxieme_prototype.h5"
         if option == 'CNN simple':
             MODEL = "premier_prototype.h5"
