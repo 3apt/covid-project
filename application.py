@@ -39,7 +39,7 @@ def application():
                                                  "<p>Le modèle est un réseau de neurone à 2 couches de convolution, "
                                                  "il a pour le moment une précision test de "
                                                  "<strong>97.3%.</strong></p>"
-                                                 "<p>Attention : ce modèle a été entrainé sur le dataset biaisé.</p>")
+                                                 "<p style='color:red'>Attention : ce modèle a été entrainé sur le dataset biaisé.</p>")
         if st.checkbox('Afficher la description du modèle'):
             st.image(Image.open('illustrations/cnn_simple.png'))
     
@@ -133,7 +133,7 @@ def application():
         st.image(heatmap, use_column_width=True)
         
         if option != 'CNN simple':
-            st.markdown(unsafe_allow_html=True, body="<h3>Image coloriée par le réseau pour prendre sa décision</h3>")
+            st.markdown(unsafe_allow_html=True, body="<h3>Image coloriée par le réseau en amont du transfer learning</h3>")
             st.image(functions_streamlit.colorize(model, img_pp), use_column_width=True)
         
         

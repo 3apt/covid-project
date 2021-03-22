@@ -1,5 +1,8 @@
 import streamlit as st
 from PIL import Image
+import pandas as pd
+import matplotlib.pyplot as plt
+from random import choice
 
 def preprocessing():
     st.title('Preprocessing des images')
@@ -25,6 +28,27 @@ def preprocessing():
              utilisées pour constituer notre nouveau dataset d'entraînement et de 
              test de modèles de deep learning.''')
     
+    st.write('### Aperçu des images avant/après le preprocessing')
+    st.button(label="Changer l'image")
+    url = 'https://3aptiste.s3.eu-west-3.amazonaws.com/'
+    df = pd.read_csv('COVID-19 Radiography Database/img_metadata.csv', index_col = 0)
+    df = df[df['keep'] == 1]
+    fig, axes = plt.subplots(1, 2, figsize=(14,9))
+    axes = axes.ravel()
+    image_name = choice(df.index)
+    for ii, dossier in enumerate(('COVID-19+Radiography+Database/', 'cropped_dataset/')):
+        if ii == 0:
+            axes[ii].set_title('Avant crop \n' + image_name)
+        else:
+            axes[ii].set_title('Après crop \n' + image_name)
+        img = plt.imread(url + dossier + image_name.replace(' ', '+'))
+        axes[ii].imshow(img, cmap = 'gray', aspect = 'equal')
+        axes[ii].grid(False);
+    st.pyplot(fig)
+    st.write('''En appliquant à nouveau la méthode du t-SNE sur les images croppées,
+             nous observons qu'il reste des biais dans le dataset, puisque l'algorithme
+             non-supervisé arrive encore à séparer les classes en projetant sur 2 dimensions :''')
+    st.image(Image.open('illustrations/t-SNE_visu_cropped.png'))
     if st.checkbox("Plus d'info sur U-net"):
             
         st.write('''*Réseau entièrement convolutionnel U-net :''')

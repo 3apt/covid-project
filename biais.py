@@ -4,7 +4,7 @@ from PIL import Image
 def biais():
     st.title('Biais du dataset')
     st.write('''Nous avons identifié lors de l’analyse exploratoire une forte hétérogénéité 
-             entre les clichés du dataset COVID et les datasets ‘VIRAL PNEUMONIA’ et ‘NORMAL’ 
+             entre les clichés du dataset COVID d'un côté et les datasets ‘VIRAL PNEUMONIA’ et ‘NORMAL’ 
              de l’autre côté, probablement due à la provenance des radiographies qui différe.
              Nous faisons alors l’hypothèse que ces disparités dans la qualité 
              des clichés peuvent constituer des biais et ainsi être préjudiciables à la pertinence 
@@ -20,21 +20,27 @@ def biais():
     st.image(Image.open('illustrations/image_28x28.png'))
     st.write('''En théorie, il est impossible de détecter le covid ou une pneumonie 
              à cause du manque de détail.''')
-    st.write('''Nous appliquons ensuite un t-SNE avec 2 composantes et 
-             nous visualisons sur ces deux axes les images 28x28 du dataset 
-             (points bleus : normal, points rouges : covid et points verts : pneumonie) :''')
-    st.image(Image.open('illustrations/t-SNE_visu.png'))
+    st.write('### Réduction de dimension avec une t-SNE')
+    st.write('''L'algorithme t-SNE est une méthode non linéaire permettant de représenter 
+             un ensemble de points 
+             d'un espace à grande dimension dans un espace de deux ou trois dimensions, 
+             les données peuvent ensuite être visualisées avec un nuage de points.''')
+    st.write('''Nous appliquons l'algorithme avec 2 composantes et 
+             nous visualisons sur ces deux axes les images 28x28 du dataset :''')
+    if st.checkbox('Avec SVM'):
+         st.image(Image.open('illustrations/t-SNE_classif.png'))
+    else:
+        st.image(Image.open('illustrations/t-SNE_visu.png'))
     st.write('''Nous remarquons avec étonnement qu’il est possible de distinguer les 3 classes 
              sur une projection 2D, avec une méthode de clustering non-supervisée et  
              des images sans détail !''')
-    st.write('''En effet, en appliquant un random forest avec uniquement les deux variables 
-             correspondant aux deux axes t-SNE, nous obtenons une val_accuracy de presque 93%.''')
-    st.write('''Il est même possible d'observer sur l’image suivante qu’une classification SVM sur ces 
-             deux composantes semble bien fonctionner :''')
-    st.image(Image.open('illustrations/t-SNE_classif.png'))
+    st.write('''En effet, en appliquant un SVM sur les deux variables 
+             correspondant aux deux axes t-SNE, nous obtenons une accuracy de 84%.''')
+   
     st.write('''L’algorithme t-SNE semble extraire sur les images sans détail 28x28 une information 
              importante qui lui permet de faire une bonne classification. Pour faciliter 
-             l'interprétation, faisons la même chose avec une PCA :''')
+             l'interprétation, faisons la même chose avec une PCA.''')
+    st.write('### Réduction de dimension avec une PCA')
     st.image(Image.open('illustrations/pca_visu.png'))
     st.write('''La projection est moins efficace qu’avec la méthode t-SNE,
              mais nous remarquons que le premier mode (axe des abscisses) permet de séparer correctement 
