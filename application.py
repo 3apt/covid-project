@@ -8,7 +8,7 @@ def application():
     st.title("Détecteur de COVID")
     
     option = 'VGG16'
-    option = st.selectbox('Quel modèle voulez-vous utiliser ?',('densenet121', 'VGG16', 'CNN simple'))
+    option = st.selectbox('Quel modèle voulez-vous utiliser ?',('densenet121', 'VGG16', 'CNN simple (biaisé)'))
     
     if option == 'VGG16':
         
@@ -31,7 +31,7 @@ def application():
                                                  "<strong>91.4%.</strong></p>")
         if st.checkbox('Afficher la description du modèle'):
             st.image(Image.open('illustrations/densenet121.png'))
-    if option == 'CNN simple':
+    if option == 'CNN simple (biaisé)':
         # Introduction text
         st.markdown(unsafe_allow_html=True, body="<p>Bienvenue sur le détecteur de COVID-19 et pneumonie.</p>"
                                                  "Avec cette app, vous pouvez uploader une radio de la poitrine et prédire si le patient "
@@ -53,7 +53,7 @@ def application():
         img = np.array(Image.open(image_name))
         
         im_shape = (226, 226)
-        if option == 'CNN simple':
+        if option == 'CNN simple (biaisé)':
             im_shape = (160, 160)
         # preprocess de l'image
         img_pp = functions_streamlit.preprocess_image(img, im_shape)
@@ -71,7 +71,7 @@ def application():
             MODEL = "troisieme_prototype.h5"
         if option == 'densenet121':
             MODEL = "deuxieme_prototype.h5"
-        if option == 'CNN simple':
+        if option == 'CNN simple (biaisé)':
             MODEL = "premier_prototype.h5"
         loading_msg = st.empty()
         loading_msg.text("En cours de prédiction..")
@@ -117,7 +117,7 @@ def application():
                 "dense_4",
                 "dropout_3",
                 "dense_5"]
-        if option == 'CNN simple':
+        if option == 'CNN simple (biaisé)':
             last_conv_layer_name = "conv2d_1"
             classifier_layer_names = [
                 "max_pooling2d_1",
@@ -132,7 +132,7 @@ def application():
         st.markdown(unsafe_allow_html=True, body="<h3>Zone d'intérêt du réseau de neurone dans l'image pour prendre sa décision</h3>")
         st.image(heatmap, use_column_width=True)
         
-        if option != 'CNN simple':
+        if option != 'CNN simple (biaisé)':
             st.markdown(unsafe_allow_html=True, body="<h3>Image coloriée par le réseau en amont du transfer learning</h3>")
             st.image(functions_streamlit.colorize(model, img_pp), use_column_width=True)
         
