@@ -43,9 +43,17 @@ def application():
         if st.checkbox('Afficher la description du modèle'):
             st.image(Image.open('illustrations/cnn_simple.png'))
     
+    st.write('''Pour améliorer l'interprétabilité du modèle, nous avons adopté la méthode de 
+             Mapping Grad-CAM [1] pour visualiser les régions importantes menant à la 
+             décision du modèle de deep learning. 
+             Elle permet d'obtenir une carte d'activation de la classe déterminée par le réseau
+             en utilisant la dernière couche de convolution.
+             Cette carte est affichée en dessous de la décision lorsque vous chargez une image.
+             ''')
     st.markdown("Commencez par charger une image radio des poumons.")
     
     # uploader une image
+    image_name = 'COVID-19 Radiography Database/COVID (1).png'
     image_name = st.file_uploader(label="Charger l'image", type=['jpeg', 'jpg', 'png'], key="xray")
     
     if image_name is not None:
@@ -129,12 +137,14 @@ def application():
         
         heatmap = functions_streamlit.make_gradcam_heatmap(
             img_pp, model, last_conv_layer_name, classifier_layer_names)
-        st.markdown(unsafe_allow_html=True, body="<h3>Zone d'intérêt du réseau de neurone dans l'image pour prendre sa décision</h3>")
+        st.markdown(unsafe_allow_html=True, body="<h3>Zone d'intérêt du réseau de neurone dans l'image pour prendre sa décision (Grad-CAM)</h3>")
         st.image(heatmap, use_column_width=True)
         
         if option != 'CNN simple (biaisé)':
             st.markdown(unsafe_allow_html=True, body="<h3>Image coloriée par le réseau en amont du transfer learning</h3>")
             st.image(functions_streamlit.colorize(model, img_pp), use_column_width=True)
         
-        
+    st.write('''[1] Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R., Parikh, D., & Batra, D. (2017). 
+             Grad-cam: Visual explanations from deep networks via gradient-based localization. 
+             In Proceedings of the IEEE international conference on computer vision (pp. 618-626).''')
     

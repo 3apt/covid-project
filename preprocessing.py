@@ -10,8 +10,8 @@ def preprocessing():
              nous avons observé que les algorithmes
              de classification se basaient principalement sur les pixels en bordure d'image
              pour prendre leur décision.
-             
-             Notre idée est donc de supprimer ces bords, 
+             ''')
+    st.write('''Notre idée est donc de supprimer ces bords, 
              et de ne garder que les poumons qui concentrent l’information 
              nécessaire à la classification.''')
     st.write('''Pour cela, nous avons utilisé un réseau de neurones U-net* pré-entrainé [1] et 
