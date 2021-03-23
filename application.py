@@ -58,7 +58,7 @@ def application():
     
     
     if image_name is None:
-        image_name = 'COVID-19 Radiography Database/COVID/COVID (1).png'
+        image_name = 'illustrations/covid_test.png'
     
     # chargement de l'image
     img = np.array(Image.open(image_name))

@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 def conclusion():
     st.title('Conclusion')
@@ -20,3 +21,4 @@ def conclusion():
     st.write("- Continuer à optimiser les performances du réseau en entraînant sur plus d'epochs et en dégelant certaines couches du réseau pré-entraîné.")
     st.write("- Travailler avec des radiologues pour évaluer la pertinence des cartes grad-CAM sur des images de patients")
     st.write("- Ajouter au modèle des informations sur les patients en plus des images : symptômes, antécédents médicaux, âge, sexe, localisation, date, etc ; afin de rendre le modèle plus robuste.")
+    st.image(Image.open('illustrations/radio.jpeg'))
