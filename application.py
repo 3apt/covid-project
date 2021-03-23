@@ -58,7 +58,7 @@ def application():
     
     
     if image_name is None:
-        image_name = 'COVID-19 Radiography Database/COVID (1).png'
+        image_name = 'COVID-19 Radiography Database/COVID/COVID (1).png'
     
     # chargement de l'image
     img = np.array(Image.open(image_name))
@@ -143,11 +143,12 @@ def application():
     st.markdown(unsafe_allow_html=True, body="<h3>Zone d'intérêt du réseau de neurone dans l'image pour prendre sa décision (Grad-CAM)</h3>")
     st.image(heatmap, use_column_width=True)
     
+    st.write('''[1] Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R., Parikh, D., & Batra, D. (2017). 
+             Grad-cam: Visual explanations from deep networks via gradient-based localization. 
+             In Proceedings of the IEEE international conference on computer vision (pp. 618-626).''')
+    
     if option != 'CNN simple (biaisé)':
         st.markdown(unsafe_allow_html=True, body="<h3>Image coloriée par le réseau en amont du transfer learning</h3>")
         st.image(functions_streamlit.colorize(model, img_pp), use_column_width=True)
     
-    st.write('''[1] Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R., Parikh, D., & Batra, D. (2017). 
-             Grad-cam: Visual explanations from deep networks via gradient-based localization. 
-             In Proceedings of the IEEE international conference on computer vision (pp. 618-626).''')
     
