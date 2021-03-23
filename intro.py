@@ -40,7 +40,7 @@ def intro():
     for ii, label in enumerate(('covid', 'normal', 'pneumo')):
         image_name = choice(df.loc[df.Class==label].index)
         axes[ii].set_title(image_name)
-        img = plt.imread('COVID-19 Radiography Database/' image_name)
+        img = plt.imread('COVID-19 Radiography Database/' + image_name)
         axes[ii].imshow(img, cmap = 'gray')
         axes[ii].grid(False);
     st.pyplot(fig)

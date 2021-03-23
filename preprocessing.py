@@ -41,7 +41,7 @@ def preprocessing():
             axes[ii].set_title('Avant crop \n' + image_name)
         else:
             axes[ii].set_title('Après crop \n' + image_name)
-        img = plt.imread(dossier)
+        img = plt.imread(dossier + image_name)
         axes[ii].imshow(img, cmap = 'gray', aspect = 'equal')
         axes[ii].grid(False);
     st.pyplot(fig)
