@@ -14,6 +14,7 @@ import intro
 import biais
 import preprocessing
 import application
+import conclusion
 
 # Sidebar Options & File Uplaod
 las_file=None
@@ -23,7 +24,7 @@ st.sidebar.write('# Détecteur de COVID')
 # Sidebar Navigation
 st.sidebar.title('Menu')
 options = st.sidebar.radio('Selectionnez une page :', 
-    ['Introduction', 'Biais du dataset', 'Preprocessing', 'Application'])
+    ['Introduction', 'Biais du dataset', 'Preprocessing', 'Application', 'Conclusion'])
 
 if options == 'Introduction':
     intro.intro()
@@ -33,3 +34,5 @@ elif options == 'Preprocessing':
     preprocessing.preprocessing()
 elif options == 'Application':
     application.application()
+elif options == 'Conclusion':
+    conclusion.conclusion()
