@@ -30,18 +30,18 @@ def preprocessing():
     
     st.write('### Aperçu des images avant/après le preprocessing')
     st.button(label="Changer l'image")
-    url = 'https://3aptiste.s3.eu-west-3.amazonaws.com/'
+    # url = 'https://3aptiste.s3.eu-west-3.amazonaws.com/'
     df = pd.read_csv('COVID-19 Radiography Database/img_metadata.csv', index_col = 0)
     df = df[df['keep'] == 1]
     fig, axes = plt.subplots(1, 2, figsize=(14,9))
     axes = axes.ravel()
     image_name = choice(df.index)
-    for ii, dossier in enumerate(('COVID-19+Radiography+Database/', 'cropped_dataset/')):
+    for ii, dossier in enumerate(('COVID-19 Radiography Database/', 'cropped_dataset/')):
         if ii == 0:
             axes[ii].set_title('Avant crop \n' + image_name)
         else:
             axes[ii].set_title('Après crop \n' + image_name)
-        img = plt.imread(url + dossier + image_name.replace(' ', '+'))
+        img = plt.imread(dossier)
         axes[ii].imshow(img, cmap = 'gray', aspect = 'equal')
         axes[ii].grid(False);
     st.pyplot(fig)
