@@ -50,8 +50,14 @@ def intro():
     st.dataframe(df[['height', 'width']].value_counts().to_frame("Nombre d'images"))
     
     st.write('### Luminosité des images')
+
+    
     st.write('''Les images n'ont pas toutes la même luminosité. L'histogramme suivant
          présente les luminosités des images du dataset :''')
-    fig = sns.displot(data = df, x="luminosite", hue="Class", multiple="stack")
+    options = st.multiselect(
+     'Choisissez les classes que vous souhaitez afficher :',
+     ['covid', 'normal', 'pneumo'],
+     ['covid', 'normal'])
+    fig = sns.displot(data = df[df['Class'].isin(options)], x="luminosite", hue="Class")
     st.pyplot(fig)
     
