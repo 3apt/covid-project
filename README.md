@@ -14,7 +14,7 @@ Le set de donnée contient des images radiographiques pulmonaires pour des cas p
 
 [Application Streamlit](https://share.streamlit.io/3apt/covid-project/main/app.py)
 
-## Fichiers github
+## Contenu
 
 - Codes
 	- 0_Projet_COVID_explo.ipynb
