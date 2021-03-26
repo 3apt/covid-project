@@ -10,7 +10,7 @@ Afin de faire le diagnostic des patients au Covid-19, l’analyse de radiographi
 
 Le set de donnée contient des images radiographiques pulmonaires pour des cas positifs au covid-19 mais aussi des images radiographiques de pneumonies virales et de patients sains : [Kaggle dataset](https://www.kaggle.com/tawsifurrahman/covid19-radiography-database/)
 
-### Démo streamlit
+## Démo streamlit
 
 [Application Streamlit](https://share.streamlit.io/3apt/covid-project/main/app.py)
 
@@ -50,4 +50,4 @@ Le set de donnée contient des images radiographiques pulmonaires pour des cas p
 	- cropped_dataset/deuxieme_prototype.h5 (Densenet121)
 	- cropped_dataset/troisieme_prototype.h5 (VGG16)
 
-- 
+
